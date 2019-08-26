@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport"
+        name="viewport">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>就诊人列表</title>
+    <link rel="stylesheet" href="./assets/css/commonstyle.css">
+    <style>
+        .container {
+            background-color: #f1f1f1;
+            overflow: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            background-color: #fff;
+            font-size: 12px;
+        }
+
+        .header .orange-color {
+            color: orange;
+        }
+
+        .header .add-patient-operation {
+            color: #4FB5FF;
+            border: 1px solid #4FB5FF;
+            border-radius: 5px;
+            padding: 0 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .content-list {
+            margin-top: 8px;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+
+        }
+
+        .list-item {
+            width: 100%;
+            /* height: 49%; */
+            background-color: #fff;
+        }
+
+        .list-item:not(:last-child) {
+            margin-bottom: 8px;
+        }
+
+        .content-list .patient-name {
+            white-space: nowrap;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        .content-list .del-patient-operation {
+            font-size: 8px;
+            color: #fff;
+            background-color: #f00;
+            padding: 3px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            height: 14px;
+            line-height: 13px;
+        }
+
+        .name-row {
+            display: flex;
+            /* justify-content: space-between; */
+            align-items: center;
+            width: 66%;
+        }
+
+        .item-name {
+            font-size: 16px;
+        }
+
+        .item-label {
+            border: 1px solid;
+            border-radius: 4px;
+            font-size: 8px;
+            padding: 2px 8px;
+
+            line-height: 13px;
+        }
+
+        .item-label-margin {
+            margin: 0 8px;
+        }
+
+        .item-label-blue {
+            color: #4FB5FF;
+            border-color: #4FB5FF;
+        }
+
+        .item-label-orange {
+            color: #FF9024;
+            border-color: #FF9024;
+        }
+
+        .item-label-green {
+            color: #27D427;
+            border-color: #27D427;
+        }
+
+        .patient-card-flag {
+            width: 5px;
+            background-color: #4FB5FF;
+        }
+
+        .down-icon {
+            border-top: 2px solid #101010;
+            border-right: 2px solid #101010;
+            width: 8px;
+            height: 8px;
+            transform: rotate(135deg);
+            margin: 2px 8px 0 8px;
+        }
+
+        .card-content {
+            font-size: 18px;
+            font-weight: bold;
+            position: relative;
+            left: 8%;
+            top: 56%;
+            height: 50px;
+        }
+
+        .card-qrcode img {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            right: 28%;
+            top: 33%;
+        }
+
+        .hospital-card-title {
+            display: flex;
+            justify-content: space-around;
+            font-weight: bold;
+            line-height: 58px;
+        }
+
+        .card-patient-name {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .upgradePrompt {
+            position: relative;
+            top: 56%;
+            right: 43%;
+            font-size: 18px;
+            color: red;
+        }
+
+        .hospital-card {
+            background-image: url('./assets/images/hospitalCard.jpg');
+            width: 100%;
+            height: 69%;
+            background-repeat: no-repeat;
+            background-size: 95% 90%;
+            background-position: center;
+            background-color: #fff;
+            /* display: flex; */
+            height: 200px;
+            /* justify-content: space-between; */
+        }
+
+        .patient-card {
+            background-image: url('./assets/images/hospitalHealthCard.png');
+            width: 100%;
+            /* height: 69%; */
+            background-repeat: no-repeat;
+            background-size: 95% 90%;
+            background-position: center;
+            background-color: #fff;
+            display: flex;
+            height: 200px;
+            justify-content: space-between;
+        }
+
+
+
+        .patient-operation {
+            display: flex;
+            /* border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 8px 0; */
+            width: 94%;
+            margin-left: 2.5%;
+        }
+
+        .operation-item {
+            width: 100%;
+            display: flex;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 8px 0;
+        }
+
+        .patient-operation img {
+            width: 35px;
+            height: 25px;
+            margin-right: 12px;
+        }
+
+        .management-icon {
+            display: flex;
+            align-items: center;
+        }
+
+        .card-management:first-child {
+            border-right: 1px solid #ddd;
+        }
+
+        .card-management {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer {
+            max-height: 50px;
+            position: fixed;
+            bottom: 12px;
+            width: 100%;
+        }
+
+        .footer button {
+            height: 38px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="header">
+                <div><span>温馨提示：最多可添加<span class="orange-color">5位</span>就诊人，请谨慎添加</span></div>
+                <div class="add-patient-operation"><span>添加就诊人</span></div>
+            </div>
+            <div class="content-list">
+                <div class="list-item">
+                    <div class="patient-name">
+                        <div class="name-row">
+                            <span class="patient-card-flag">&emsp;</span>
+                            <span class="item-name item-label-margin">颜国飞</span>
+                            <span class="item-label item-label-blue">成人</span>
+                            <span class="item-label item-label-orange item-label-margin">已实名</span>
+                            <span class="item-label item-label-green">已绑卡</span>
+                        </div>
+                        <div style="display: flex">
+                            <span class="del-patient-operation">删除就诊人</span>
+                            <span class="down-icon"></span>
+                        </div>
+                    </div>
+                    <div class="patient-card">
+                        <div class="card-content">
+                            <span>颜国飞</span>
+                            <br />
+                            <span>430************2056</span>
+                        </div>
+                        <div>
+                            <span class="card-qrcode">
+                                <img src="./assets/images/hospitalQRcode.jpg" alt="qrcode">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="patient-operation">
+                        <div class="operation-item">
+
+                            <div class="card-management">
+                                <span class="management-icon"><img src="./assets/images/user.png" alt=""></span>
+                                <a href="./patientCard.html">
+                                    <span style="color:#101010">就诊卡管理</span>
+                                </a>
+                            </div>
+                            <div class="card-management">
+                                <span class="management-icon"><img src="./assets/images/hospitalIcon.png" alt=""></span>
+                                <span>绑定住院号</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="patient-name">
+                        <div class="name-row">
+                            <span class="patient-card-flag">&emsp;</span>
+                            <span class="item-name item-label-margin">潘之谦</span>
+                            <span class="item-label item-label-blue">儿童</span>
+                            <span class="item-label item-label-orange item-label-margin">已实名</span>
+                            <span class="item-label item-label-green">已绑卡</span>
+                        </div>
+                        <div style="display: flex">
+                            <span class="del-patient-operation">删除就诊人</span>
+                            <span class="down-icon"></span>
+                        </div>
+                    </div>
+                    <div class="hospital-card">
+                        <div style="width: 100%; 
+                        height: 100px; ">
+                            <div class="hospital-card-title">
+                                <span>长沙市第一医院</span>
+                                <span style="font-size: 18px;
+                                padding-left: 26%;">院内就诊卡</span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="card-patient-name">
+                            <div class="card-content" style="top:0">
+                                <span>潘之谦</span>
+                                <br />
+                                <span>430************2056</span>
+                            </div>
+                            <div>
+                                <span class="card-qrcode">
+                                    <img src="./assets/images/hospitalQRcode.jpg" alt="qrcode" style="top: -50%;">
+                                </span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="patient-card">
+
+                        <div class="card-content">
+                            <span>潘之谦</span>
+                            <br />
+                            <span>430************2056</span>
+                        </div>
+                        <div>
+                            <span class="card-qrcode upgradePrompt">
+                                <span style="position: relative;
+                                left: 20%;">未升级</span>
+                                <br />
+                                <span>请点击升级</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="patient-operation">
+                        <div class="operation-item">
+                            <div class="card-management">
+                                <span class="management-icon"><img src="./assets/images/user.png" alt=""></span>
+                                <a href="./patientCard.html">
+                                    <span style="color:#101010">就诊卡管理</span>
+                                </a>
+                            </div>
+                            <div class="card-management">
+                                <span class="management-icon"><img src="./assets/images/hospitalIcon.png" alt=""></span>
+                                <span>绑定住院号</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="footer">
+                <button>添加就诊人</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="./assets/js/jquery2.1.1.min.js"></script>
+    <script language="javascript" type="text/javascript">
+        //<![CDATA[ 
+        //手机页面被文字输入框顶起来后，重新设定页面高度
+        $('body').height($('body')[0].clientHeight);
+
+        //设置页面可滑动区域高高度
+        $('.content-list').height($('body')[0].clientHeight - $(".header")[0].clientHeight - $(".footer")[0].clientHeight - 12 - 8 - 12);
+
+    //]]>
+    </script>
+</body>
+
+</html>

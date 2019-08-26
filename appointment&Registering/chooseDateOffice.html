@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport"
+        name="viewport">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>日期选择</title>
+    <link rel="stylesheet" href="./assets/css/commonstyle.css">
+    <style>
+        .wrapper {
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 0 8px;
+        }
+
+        .choose-date-btn {
+            padding: 12px;
+            height: 40px;
+        }
+
+        .choose-date-btn img {
+            width: 34px;
+        }
+
+        .choose-date-btn button {
+            height: 40px;
+            width: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #chooseDateBtn {
+            margin-left: 8px;
+            font-size: 16px;
+        }
+
+        .tooltip {
+            font-size: 16px;
+            padding-left: 12px;
+            color: #F1B954;
+            font-weight: bold;
+        }
+
+
+        .choose-office-list {
+            background-color: #fff;
+            box-shadow: #d0cdc8 0 0 10px;
+            border-radius: 5px;
+            display: flex;
+        }
+
+        .choose-office-list .office-list {
+            width: 30%;
+            background-color: #FAFAFA;
+            padding: 2px;
+        }
+
+        .choose-office-list .doctor-list {
+            width: 70%;
+            background-color: #fff;
+        }
+
+        .choose-office-list .office-list .office-name {
+            color: #8D8D8D;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .choose-office-list .office-list .office-list-actived {
+            background-color: #57B7FA;
+            color: #fff;
+        }
+
+        .doctor-list,
+        .office-list {
+            overflow-y: scroll;
+        }
+
+        .doctor-list {
+            overflow-y: scroll;
+        }
+
+        .doctor-item {
+            background-color: #fff;
+        }
+
+        .doctor-item {
+            display: flex;
+            padding: 8px 2px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .item-avatar {
+            /* width: 15%; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-avatar img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .item-detail {
+            width: 70%;
+            padding: 0 2px;
+            color: #8d8d8d;
+        }
+
+        .item-detail div {
+            line-height: 20px;
+        }
+
+        .item-btn {
+            width: 15%;
+            display: flex;
+            justify-content: flex-end;
+            /* padding-right: 3px; */
+        }
+
+        .item-btn button {
+            height: 32px;
+            /* width: 65px; */
+            border-radius: 7px;
+            font-size: 14px;
+            white-space: nowrap;
+            margin-right: 5px;
+        }
+
+        .item-detail-speciality {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+        }
+
+        .item-detail-name {
+            font: bold 16px arial, sans-serif;
+            color: #101010b8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="choose-date-btn">
+                <button onclick=(chooseDate())>
+                    <img src="./assets/images/date-icon.png" alt="">
+                    <span id="chooseDateBtn">请选择挂号日期</span>
+                </button>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <span class="tooltip">滑动选择门诊科室</span>
+            </div>
+            <div class="choose-office-list">
+                <div class="office-list">
+
+                </div>
+                <div class="doctor-list">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/js/jquery2.1.1.min.js"></script>
+    <script language="javascript" type="text/javascript">
+        //<![CDATA[ 
+        //手机页面被文字输入框顶起来后，重新设定页面高度
+        $('body').height($('body')[0].clientHeight);
+        //设置页面可滑动区域高高度
+        $('.choose-office-list').height($('body')[0].clientHeight - $(".choose-date-btn")[0].clientHeight - $(".tooltip")[0].clientHeight - 25);
+        const date = getUrl('date');
+        $('#chooseDateBtn').html(date);
+        //清空科室列表默认内容
+        $(".office-list").empty();
+        //清空医生列表默认内容
+        $(".doctor-list").empty();
+
+        //ajax获取的科室列表
+        const officeList = [
+            { "officeId": "adw2aw411", "officeName": "老专家门诊" },
+            { "officeId": "adw2aw41111", "officeName": "妇科" },
+            { "officeId": "adw2aw4112", "officeName": "儿科" },
+            { "officeId": "adw2aw4131", "officeName": "老年病科" },
+            { "officeId": "adw2aw4141", "officeName": "产科" },
+            { "officeId": "adw25aw411", "officeName": "心血管一科" },
+            { "officeId": "adw2a6w411", "officeName": "心血管二科" },
+            { "officeId": "ad6w2aw411", "officeName": "脑病科" },
+            { "officeId": "adw72aw411", "officeName": "传统内科" },
+            { "officeId": "adw28aw411", "officeName": "肺病科" },
+            { "officeId": "adw2aw41133", "officeName": "老专家门诊1" },
+            { "officeId": "adw2aw411113", "officeName": "妇科1" },
+            { "officeId": "adw2aw41123", "officeName": "儿科1" },
+            { "officeId": "adw2aw41313", "officeName": "老年病科1" },
+            { "officeId": "adw2aw41413", "officeName": "产科1" },
+            { "officeId": "adw25aw4113", "officeName": "心血管一科1" },
+            { "officeId": "adw2a6w4113", "officeName": "心血管二科1" },
+            { "officeId": "ad6w2aw4113", "officeName": "脑病科1" },
+            { "officeId": "adw72aw4113", "officeName": "传统内科1" },
+            { "officeId": "adw28aw4113", "officeName": "肺病科1" }
+        ];
+
+        //调用向页面填充数据函数
+        appendofficeList(officeList);
+
+        //为第一个元素添加高亮
+        $(".office-name:first").addClass("office-list-actived");
+
+        //ajax获取的医生列表
+        let doctorList = [
+            {
+                "doctorId": "as4d523d1571sdf5",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "asda1w8da46a2wd4a21d35",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            }
+        ]
+        //向页面添加数据
+        this.appendDoctorList(doctorList);
+
+
+        //向页面填充数据
+        function appendofficeList(officeList) {
+            var insertHTML = '';
+            officeList.map((item) => {
+
+                insertHTML += `
+                <div class="office-name office-name-${item.officeId}" onclick=(someFunction('${item.officeId}'))>
+                        <span>${item.officeName}</span>
+                    </div>
+                `;
+            });
+
+            $(".office-list").append(insertHTML);
+        }
+
+        //用户点击科室后的 一些操作
+        function someFunction(officeId) {
+            console.log(officeId);
+            const highLight = ".office-name-" + officeId;
+            $(".office-name").removeClass("office-list-actived");
+            $(highLight).addClass("office-list-actived");
+        }
+
+        //向页面填充医生列表
+        function appendDoctorList(doctorList) {
+            var insertHTML = '';
+
+            doctorList.map((item) => {
+                insertHTML += `
+                    <div class="doctor-item">
+                        <div class="item-avatar">
+                            <span><img src=${item.doctorAvatar} alt=""></span>
+                        </div>
+                        <div class="item-detail">
+                            <div>
+                                <span class="item-detail-name">${item.doctorName}</span>
+                                <span>${item.doctorTitle}</span>
+                            </div>
+                            <div>
+                                <span>科室：</span>
+                                <span>${item.doctorOffice}</span>
+                            </div>
+                            <div class="item-detail-speciality">
+                                <span>专长：</span>
+                                <span>${item.doctorspeciality}</span>
+                            </div>
+                        </div>
+                        <div class="item-btn">
+                            <span>
+                                <button  onclick=appointmentDoctor('${item.doctorId}')>马上预约</button>
+                            </span>
+                        </div>
+                    </div>`
+            });
+            $(".doctor-list").append(insertHTML);
+        }
+        //用户点击预约后触发的事件 根据医生的id 进行下一步操作 
+        function appointmentDoctor(doctorId) {
+            console.log(doctorId);
+        }
+        //判断星期
+        function getWeek(date) {
+            const weekArray = new Array("日", "一", "二", "三", "四", "五", "六");
+            const week = weekArray[new Date(date).getDay()];
+            return week;
+        }
+
+        //返回到挂号日期选择页面
+        function chooseDate() {
+            window.location.href = './chooseDate.html';
+        }
+
+        //获取 url 后的参数值
+        function getUrl(param) {
+            let paraArr = location.search.substring(1).split('&');
+            for (let i = 0, length = paraArr.length; i < length; i++) {
+                const paramName = paraArr[i].split('=')[0];
+                const paramDate = paraArr[i].split('=')[1];
+                if (param === paramName) {
+                    console.log(paramDate)
+                    const dateString = paramDate.split('-');
+                    const year = dateString[0].padStart(4, '20');
+                    const month = dateString[1].padStart(2, '0');
+                    const day = dateString[2].padStart(2, '0');
+                    const week = getWeek(paramDate);
+                    const dateFormat = `${year}年${month}月${day}日 星期${week}`;
+                    return dateFormat;
+                }
+            }
+            return '';
+        }
+
+        //判断星期
+        function getWeek(date) {
+            const weekArray = new Array("日", "一", "二", "三", "四", "五", "六");
+            const week = weekArray[new Date(date).getDay()];
+            return week;
+        }
+    //]]>
+    </script>
+</body>
+
+</html>

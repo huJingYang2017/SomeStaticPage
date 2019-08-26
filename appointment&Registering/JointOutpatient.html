@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport"
+        name="viewport">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>日期选择</title>
+    <link rel="stylesheet" href="./assets/css/commonstyle.css">
+    <style>
+        .container {
+            background-color: #fff;
+            padding: 16px 8px 0 8px;
+        }
+
+        .office-intro,
+        .doctor-intro {
+            padding: 12px 8px;
+            background-color: #fff;
+            box-shadow: #ddd 0 0 5px;
+        }
+
+        .item-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #101010;
+        }
+
+        .office-intro-btn {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 12px;
+        }
+
+        .office-intro-btn button {
+            height: 40px;
+            width: 75px;
+            border-radius: 7px;
+            font-size: 14px;
+            white-space: nowrap;
+            margin-right: 5px;
+        }
+
+        .intro {
+            color: #a3a3a3;
+            font-size: 16px;
+            word-wrap: break-word;
+            word-break: break-all;
+            text-align: left;
+            display: -webkit-box;
+        }
+
+        .notShowAll {
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 8;
+
+        }
+
+        .office-intro-detail {
+            padding: 12px 0;
+            border-bottom: 1px solid #ddd;
+            text-align: right;
+        }
+
+        .doctor-list {
+            overflow-y: scroll;
+        }
+
+        .doctor-intro {
+            margin-top: 18px;
+
+        }
+
+        .doctor-item {
+            background-color: #fff;
+        }
+
+        .doctor-item {
+            display: flex;
+            padding: 8px 2px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .item-avatar {
+            width: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-avatar img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .item-detail {
+            width: 80%;
+            padding: 0 2px;
+            color: #8d8d8d;
+        }
+
+        .item-detail div {
+            line-height: 20px;
+        }
+
+
+
+        .item-detail-name {
+            font: bold 16px arial, sans-serif;
+            color: #101010b8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="office-intro">
+                <div class="item-name">
+                    <span>门诊介绍</span>
+                </div>
+                <div class="office-intro-detail">
+                    <span class="intro notShowAll">
+                        &emsp;&emsp;xxxx大学附属xxxx医院盆底治疗专科（盆底中心）于2009年6月正式挂牌成立，由xxx大学附属xxxx医院与日本大肠肛门病中心-高野病院合作建立，是国内首家盆底疾病专业研究机构，主要对由各种原因导致的慢性便秘、大便失禁、慢性盆底疼痛、术后排便功能障碍、尿失禁、产后盆底松弛等疾病进行诊断和治疗，从而达到恢复盆底正常生理功能的目的。xxxx大学附属xxxx医院盆底治疗专科（盆底中心）于2009年6月正式挂牌成立，由xxx大学附属xxxx医院与日本大肠肛门病中心-高野病院合作建立，是国内首家盆底疾病专业研究机构，主要对由各种原因导致的慢性便秘、大便失禁、慢性盆底疼痛、术后排便功能障碍、尿失禁、产后盆底松弛等疾病进行诊断和治疗，从而达到恢复盆底正常生理功能的目的。xxxx大学附属xxxx医院盆底治疗专科（盆底中心）于2009年6月正式挂牌成立，由xxx大学附属xxxx医院与日本大肠肛门病中心-高野病院合作建立，是国内首家盆底疾病专业研究机构，主要对由各种原因导致的慢性便秘、大便失禁、慢性盆底疼痛、术后排便功能障碍、尿失禁、产后盆底松弛等疾病进行诊断和治疗，从而达到恢复盆底正常生理功能的目的。xxxx大学附属xxxx医院盆底治疗专科（盆底中心）于2009年6月正式挂牌成立，由xxx大学附属xxxx医院与日本大肠肛门病中心-高野病院合作建立，是国内首家盆底疾病专业研究机构，主要对由各种原因导致的慢性便秘、大便失禁、慢性盆底疼痛、术后排便功能障碍、尿失禁、产后盆底松弛等疾病进行诊断和治疗，从而达到恢复盆底正常生理功能的目的。
+                    </span>
+                    <span id="showName" style="cursor: pointer;color:#139BFE" onclick=(shwoIntro())>展开</span>
+                </div>
+                <div class="office-intro-btn">
+                    <button>马上预约</button>
+                </div>
+            </div>
+            <div class="doctor-intro">
+                <div class="item-name" style="padding-bottom: 8px;">
+                    <span>医生介绍</span>
+                </div>
+                <div class="doctor-list">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/js/jquery2.1.1.min.js"></script>
+    <script language="javascript" type="text/javascript">
+        //<![CDATA[ 
+        //手机页面被文字输入框顶起来后，重新设定页面高度
+        $('body').height($('body')[0].clientHeight);
+        //设置页面可滑动区域高高度
+        $('.doctor-list').height($('body')[0].clientHeight - $(".office-intro")[0].clientHeight - 80);
+        //清空医生列表默认内容
+        $(".doctor-list").empty();
+
+
+        //ajax获取的医生列表
+        let doctorList = [
+            {
+                "doctorId": "as4d523d1571sdf5",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "asda1w8da46a2wd4a21d35",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "2154368245a1w5d15w331",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "qa41283ad41824d6a",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            },
+            {
+                "doctorId": "q482d8q641e86q421e86",
+                "doctorAvatar": "https://via.placeholder.com/50",
+                "doctorName": "万洋1",
+                "doctorTitleOrder": "zrys",
+                "doctorTitle": "主任医师",
+                "doctorOfficeOrder": "lzjmz",
+                "doctorOffice": "老专家门诊",
+                "doctorspeciality": "中医、西医结合诊，慢性肾炎、肾结石、胆结石、尿道膀胱结石、包皮包茎、不孕不育等。"
+            }
+        ]
+        //向页面添加数据
+        this.appendDoctorList(doctorList);
+
+        //向页面填充医生列表
+        function appendDoctorList(doctorList) {
+            var insertHTML = '';
+
+            doctorList.map((item) => {
+                insertHTML += `
+                    <div class="doctor-item">
+                        <div class="item-avatar">
+                            <span><img src=${item.doctorAvatar} alt=""></span>
+                        </div>
+                        <div class="item-detail">
+                            <div>
+                                <span class="item-detail-name">${item.doctorName}</span>
+                                <span>${item.doctorTitle}</span>
+                            </div>
+                           
+                            <div class="item-detail-speciality">
+                                <span>专长：</span>
+                                <span>${item.doctorspeciality}</span>
+                            </div>
+                        </div>
+                    </div>`
+            });
+            $(".doctor-list").append(insertHTML);
+        }
+
+
+        function shwoIntro() {
+            const show = $(".intro").is('.notShowAll');
+            if (show) {
+                $(".intro").removeClass('notShowAll');
+                $("#showName").html('收起');
+
+            } else {
+                $(".intro").addClass('notShowAll');
+                $("#showName").html('展开');
+            }
+        }
+
+
+    //]]>
+    </script>
+</body>
+
+</html>

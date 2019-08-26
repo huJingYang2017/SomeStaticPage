@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>新生儿查询</title>
+    <style>
+        html,
+        .height100 {
+            height: 100%;
+        }
+
+        body {
+            margin: unset;
+            width: 100%;
+            height: 100%;
+        }
+
+        .page-background-color {
+            background-color: #fffffe;
+        }
+
+        .page-background-image {
+            width: 100%;
+            height: 21%;
+            /* position: fixed;
+            top: 0; */
+        }
+
+        .page-content {
+            /* z-index: 15;
+            height: 65%;
+            position: fixed;
+            top: 15%;
+            width: 94%;
+            padding: 0 3%; */
+            height: 65%;
+            position: relative;
+            width: 94%;
+            padding: 0 3%;
+            margin-top: -8%;
+        }
+
+        .page-content-top {
+            background: #fffffe;
+            height: 90%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 1px #23b9823d;
+            margin-bottom: 16px;
+        }
+
+        .page-content-bottom {
+            color: #999;
+        }
+
+        .content {
+            padding: 32px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            border: unset;
+            font-size: 18px;
+        }
+
+        input::-webkit-input-placeholder {
+            /* placeholder颜色  */
+            color: #a3a3a3;
+            font-size: 18px;
+        }
+
+        .content-border {
+            border-bottom: 1px solid #ddd;
+            height: 15%;
+            display: flex;
+            align-items: center;
+        }
+
+        .content-border img {
+            margin-right: 8px;
+            width: 20px;
+        }
+
+        .content-border .img-goTo {
+            width: 8px;
+            margin-left: 8px;
+        }
+
+        .content-border .img-qrcode {
+            width: 50px;
+            margin-left: 8px;
+        }
+
+        .content-search {
+            height: 32%;
+            display: flex;
+            align-items: center;
+        }
+
+        .content-search button {
+            width: 100%;
+            height: 50px;
+            background: #36B5A5;
+            border-radius: 24px;
+            border: unset;
+            box-shadow: 0px 0px 10px 1px #23b9823d;
+            color: #fffffe;
+            font-size: 18px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .content-search button:active {
+            background: #15a996;
+            border-radius: 24px;
+        }
+
+        button {
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-background-color height100">
+        <div class="height100">
+            <img src="./assets/images/topImage@2x.png" alt="妇幼查询系统" class="page-background-image">
+            <div class="page-content">
+                <div class="page-content-top">
+                    <div class="content height100">
+                        <div class="content-border">
+                            <img src="./assets/images/ic_shaicha_muqinxingming@2x.png" alt="">
+                            <input type="text" placeholder="请输入母亲姓名">
+                        </div>
+                        <div class="content-border">
+                            <img src="./assets/images/ic_shaicha_riqi@2x.png" alt="">
+                            <input type="text" placeholder="请输入分娩日期">
+                            <img src="./assets/images/ic_arrow@2x.png" alt="" class="img-goTo">
+                        </div>
+                        <div class="content-border">
+                            <img src="./assets/images/ic_shaicha_dianhua@2x.png" alt="">
+                            <input type="text" placeholder="请输入联系电话">
+                        </div>
+                        <div class="content-border">
+                            <img src="./assets/images/ic_shaicha_yanzhengma@2x.png" alt="">
+                            <input type="text" placeholder="请输入右侧验证码">
+                            <img src="./assets/images/qrcode.jpg" alt="" class="img-qrcode">
+                        </div>
+                        <div class="content-search">
+                            <button type="button">查询</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-content-bottom">
+                    <span>
+                        *为保证顺利查询，请严格按照家政手中的《新生儿疾病筛查证明》填写信息查询。
+                    </span>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <script src="./assets/js/jquery2.1.1.min.js">
+    </script>
+    <script>
+        $('body').height($('body')[0].clientHeight);
+    </script>
+</body>
+
+</html>

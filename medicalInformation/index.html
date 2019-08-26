@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" /> -->
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport"
+        name="viewport">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>就诊信息</title>
+    <link rel="stylesheet" href="./assets/css/swiper.min.css">
+    <style>
+        html,
+        .container {
+            height: 100%;
+        }
+
+        body {
+            margin: unset;
+            width: 100%;
+            height: 100%;
+            font-size: 14px;
+            background-color: #f5f5f5;
+        }
+
+        .wrapper {
+            height: 100%;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            border: unset;
+            font-size: 16px;
+        }
+
+        input::-webkit-input-placeholder {
+            /* placeholder颜色  */
+            color: #a3a3a3;
+            font-size: 16px;
+        }
+
+        button {
+            width: 90%;
+            height: 50px;
+            background-color: #30a0fe;
+            border-radius: 5px;
+            border: unset;
+            /* box-shadow: 0px 0px 10px 1px #30a0fe8c; */
+            color: #fffffe;
+            font-size: 18px;
+            cursor: pointer;
+            outline: none;
+            margin: 0 5%;
+        }
+
+        button:active {
+            background: #2583d2;
+            border-radius: 5px;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        }
+
+        a:link,
+        a:visited{
+            /*超链接无下划线*/
+            text-decoration: none;
+        }
+
+        a:hover {
+            /*鼠标放上去有下划线*/
+            text-decoration: underline;
+        }
+
+        .main-doctor-msg,
+        .main-appointment-msg,
+        .main-appointment-info,
+        .main-warm-prompt {
+            background-color: #fff;
+            margin-top: 8px;
+        }
+
+        .main-doctor-msg .content-doctor {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+
+        .main-doctor-msg .doctor-avatar {
+            display: flex;
+            margin-left: 16px;
+        }
+
+        .main-doctor-msg .content-doctor span {
+            margin-left: 16px;
+        }
+
+        .doctor-avatar img {
+            height: 40px;
+            width: 40px;
+            border-radius: 20px;
+        }
+
+        .doctor-name {
+            font-size: 18px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .doctor-title {
+            color: #b2b2b2;
+            font-weight: bold;
+            height: 18px;
+        }
+
+        .content-doctor-detail {
+            padding: 8px 0;
+        }
+
+        .doctor-detail {
+            height: 32px;
+            line-height: 32px;
+            color: #b2b2b2;
+        }
+
+        .doctor-detail span:first-child {
+            margin-left: 16px;
+            font-weight: bold;
+        }
+
+        .doctor-detail span:not(:first-child) {
+            color: #101010;
+            font-weight: bold;
+        }
+
+        .doctor-detail-data1 {
+            margin-left: 32px;
+        }
+
+        .doctor-detail-data2 {
+            margin-left: 8px;
+        }
+
+        .doctor-detail-data-color {
+            color: #E3B859 !important;
+        }
+
+        .main-appointment-msg {
+            height: 40px;
+            line-height: 40px;
+            color: #b2b2b2;
+        }
+
+        .main-appointment-msg span:first-child {
+            margin-left: 16px;
+            font-weight: bold;
+        }
+
+        .icon-right {
+            height: 10px;
+            width: 10px;
+            border-top: 2px solid #b2b2b2;
+            float: right;
+            transform: rotate(45deg);
+            border-right: 2px solid #b2b2b2;
+            margin: 14px 16px;
+        }
+
+        .main-appointment-info {
+            position: relative;
+            height: 139px;
+        }
+
+        .main-warm-prompt {
+            display: flex;
+            padding: 16px;
+        }
+
+        .swiper-pagination-userconfig {
+            /* background: unset !important; */
+            /* font-size: 14px !important; */
+            display: unset;
+            border-radius: unset;
+        }
+
+        .swiper-pagination-bullet-active {
+            -webkit-tap-highlight-color: transparent;
+            color: #50A3DE !important;
+            border-bottom: 1px solid #50A3DE;
+        }
+
+        .swiper-container {
+            width: 100%;
+            /* height: 100%; */
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .swiper-pagination-bullet {
+            width: 70px;
+            height: 40px;
+            text-align: center;
+            line-height: 20px;
+            font-size: 14px;
+            opacity: 1;
+            background: unset;
+            line-height: 40px;
+        }
+
+        .swiper-pagination-bullet-active {
+            color: #fff;
+        }
+
+        .swiper-wrapper {
+            margin-top: 45px;
+        }
+
+        .swiper-pagination {
+            top: 0;
+            bottom: unset !important;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .swiper-wrapper {
+            min-height: 41px;
+        }
+
+        .appointment-info-main {
+            width: 100%;
+            padding: 0 16px;
+        }
+
+        .appointment-content {
+            display: flex;
+            justify-content: space-between;
+            height: 45px;
+            line-height: 45px
+        }
+
+        .appointment-content:not(:last-child) {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .appointment-content input {
+            text-align: right;
+        }
+
+        .appointment-content-title {
+            color: #b2b2b2;
+            font-size: 16px;
+        }
+
+        .prompt-title {
+            color: #E8B7CB;
+            line-height: 24px;
+            min-width: 72px;
+        }
+
+        .prompt-detail {
+            color: #b2b2b2;
+
+        }
+
+        .prompt-detail span {
+            height: 24px;
+            line-height: 24px;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .footer-btn {
+            margin-top: 24px;
+            margin-bottom: 16px;
+        }
+
+        .icon-right2 {
+            height: 10px;
+            width: 10px;
+            border-top: 2px solid #b2b2b2;
+            float: right;
+            transform: rotate(45deg);
+            border-right: 2px solid #b2b2b2;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="main-doctor-msg">
+                <div class="content-doctor">
+                    <span class="doctor-avatar"><img src="./assets/images/avatar.png" alt=""></span>
+                    <span class="doctor-name">张一骅</span>
+                    <span class="doctor-title">主治医生</span>
+                </div>
+                <div class="content-doctor-detail">
+                    <div class="doctor-detail">
+                        <span>就诊科室</span>
+                        <span class="doctor-detail-data1">泌尿外科</span>
+                    </div>
+                    <div class="doctor-detail">
+                        <span>就诊时间</span>
+                        <span class="doctor-detail-data1">2019年07月05日</span>
+                        <span class="doctor-detail-data2">星期五</span>
+                        <span class="doctor-detail-data2">早上</span>
+                    </div>
+                    <div class="doctor-detail">
+                        <span>费&ensp;&ensp;&ensp;&ensp;用</span>
+                        <span class="doctor-detail-data1 doctor-detail-data-color">￥</span>
+                        <span class="doctor-detail-data2 doctor-detail-data-color">0</span>
+                    </div>
+                    <div class="doctor-detail">
+                        <span>费用明细</span>
+                        <span class="doctor-detail-data1 doctor-detail-data-color
+                        ">挂号费</span>
+                        <span class="doctor-detail-data2 doctor-detail-data-color">￥</span>
+                        <span class="doctor-detail-data2 doctor-detail-data-color">0</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="main-appointment-msg">
+                <span>预约号源</span>
+                <div class="icon-right"></div>
+
+                <span style="float:right">
+                    请点击选择号源
+                </span>
+            </div>
+
+            <div class="main-appointment-info">
+                <div class="swiper-container">
+                    <div class="swiper-pagination">
+                    </div>
+
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide swiper-height">
+                            <div class="appointment-info-main">
+                                <div class="appointment-content">
+                                    <span class="appointment-content-title">就诊人:</span>
+                                    <span style="float:right;position: fixed;right: 36px;">
+                                        <a href="#" style="font-size:16px;color:#b2b2b2">请选择就诊人</a>
+                                    </span>
+                                    <div class="icon-right2"></div>
+                                </div>
+                                <div class="appointment-content">
+                                    <span class="appointment-content-title">就诊卡:</span>
+                                    <span class="appointment-content-input">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide swiper-height">
+                            <div class="appointment-info-main">
+                                <div class="appointment-content">
+                                    <span class="appointment-content-title">姓&ensp;&ensp;&ensp;&ensp;名:</span>
+                                    <span class="appointment-content-input">
+                                        <input type="text" placeholder="请输入您的姓名">
+                                    </span>
+                                </div>
+                                <div class="appointment-content">
+                                    <span class="appointment-content-title">身份证号:</span>
+                                    <span class="appointment-content-input">
+                                        <input type="text" placeholder="请输入您的身份证号">
+                                    </span>
+                                </div>
+                                <div class="appointment-content">
+                                    <span class="appointment-content-title">手机号码:</span>
+                                    <span class="appointment-content-input">
+                                        <input type="text" placeholder="请输入您的手机号码">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="main-warm-prompt">
+                <div class="prompt-title">温馨提示<span style="color:#b2b2b2;margin:0 4px;">:</span></div>
+                <div class="prompt-detail">
+                    <span>1、请确认个人信息准确性</span> <br />
+                    <span>2、请在预约时间期限内到院就诊</span> <br />
+                    <span>3、预约时间过期后，需重新预约</span> <br />
+                    <span>4、爽约两次以上将不再能预约</span> <br />
+                    <span>5、无卡预约，若病人无身份证号则填写家属身份证号并在结尾加“A”或“B”,“A”代表男孩，“B”代表女孩。<br />例：病人为男孩，则身份证号写“2104041*******5451A”</span>
+                    <br />
+                </div>
+            </div>
+
+
+            <div class="footer-btn">
+                <button type="button">确认预约</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="./assets/js/jquery2.1.1.min.js"></script>
+    <script src="./assets/js/swiper.min.js"></script>
+    <script language="javascript" type="text/javascript">
+        //<![CDATA[ 
+        //手机页面被文字输入框顶起来后，重新设定页面高度
+        $('body').height($('body')[0].clientHeight);
+
+        //添加预约信息swiper滑动事假
+        var swiper = new Swiper('.swiper-container', {
+            //设置初始 默认选择第几个轮播 ,从0开始
+            initialSlide: 1,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                renderBullet: function (index, className) {
+                    console.log(index, typeof (index));
+                    if (index === 0) {
+                        return '<span class="' + className + ' swiper-pagination-userconfig" ' + 'attr-tabs=' + "1" + '>' + '有卡预约' + '</span>';
+                    }
+                    if (index === 1) {
+                        return '<span class="' + className + ' swiper-pagination-userconfig" ' + 'attr-tabs=' + "2" + '>' + '无卡预约' + '</span>';
+                    }
+                },
+            },
+            // 监听swiper改变事件  activeIndex 为当前选中tab的值
+            on: {
+                slideChangeTransitionStart: function () {
+                    console.log(this.activeIndex);
+                    if (this.activeIndex === 1) {
+                        $('.main-warm-prompt').css('margin-top', '52px');
+                    } else if (this.activeIndex === 0) {
+                        $('.main-warm-prompt').css('margin-top', '8px');
+                    }
+                },
+            },
+        });
+    //]]>
+    </script>
+</body>
+
+</html>

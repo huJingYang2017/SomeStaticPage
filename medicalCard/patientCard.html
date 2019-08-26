@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport"
+        name="viewport">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>就诊卡管理</title>
+    <link rel="stylesheet" href="./assets/css/commonstyle.css">
+    <style>
+        .container {
+            background-color: #f1f1f1;
+            overflow: hidden;
+        }
+
+        .card-list {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling : touch; 
+        }
+
+        .card-item {
+            width: 95%;
+            height: 150px;
+            margin: 8px 2.5% 16px 2.5%;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        .card-item-title {
+            border-radius: 5px 5px 0 0;
+        }
+
+        .card-item-title-green {
+            background-color: #AFD434;
+        }
+
+        .card-item-title-blue {
+            background-color: #3B86EB;
+        }
+
+
+
+
+        .card-item-title img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding-left: 7%;
+            /* padding-top: 2%; */
+            line-height: 50px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .title span:first-child {
+            margin-right: 5%;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-bind {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            width: 90%;
+            margin: 8px 5%;
+            border-radius: 8px;
+            padding: 8px 0px;
+            font-size: 16px;
+            color: #979797;
+        }
+
+        .btn-bind img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .btn-bind-icon {
+            display: flex;
+            align-items: center;
+
+        }
+
+        .card-item-id {
+            height: 70%;
+            color: #c3c3c3;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .set-default {
+            display: flex;
+            align-items: center;
+            width: 24%;
+            white-space: nowrap;
+        }
+
+        .set-default-img {
+            width: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer {
+            position: fixed;
+            width: 100%;
+            bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="card-list">
+                <div class="card-item">
+                    <div class="card-item-title card-item-title-green">
+                        <div class="title">
+                            <span><img src="https://via.placeholder.com/150" alt=""></span>
+                            <span>居民健康卡</span>
+                        </div>
+
+                    </div>
+                    <div class="card-item-id">
+                        <div style="margin-right:22%">lc2*****989</div>
+                        <div class="set-default">
+                            <span>当前默认</span>
+                            <span style="margin-left: 10%"><img src="./assets/images/choose-now.png" alt=""
+                                    class="set-default-img"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-item">
+                    <div class="card-item-title card-item-title-blue">
+                        <div class="title">
+                            <span><img src="https://via.placeholder.com/150" alt=""></span>
+                            <span>院内就诊卡</span>
+                        </div>
+
+                    </div>
+                    <div class="card-item-id">
+                        <div style="margin-right:22%">A2*****989</div>
+                        <div class="set-default">
+                            <span>设为默认</span>
+                            <span style="margin-left: 10%"><img src="./assets/images/choose-not.png" alt=""
+                                    class="set-default-img"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-item">
+                    <div class="card-item-title card-item-title-blue">
+                        <div class="title">
+                            <span><img src="https://via.placeholder.com/150" alt=""></span>
+                            <span>院内就诊卡</span>
+                        </div>
+
+                    </div>
+                    <div class="card-item-id">
+                        <div style="margin-right:22%">A2*****989</div>
+                        <div class="set-default">
+                            <span>设为默认</span>
+                            <span style="margin-left: 10%"><img src="./assets/images/choose-not.png" alt=""
+                                    class="set-default-img"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-item-title card-item-title-blue">
+                        <div class="title">
+                            <span><img src="https://via.placeholder.com/150" alt=""></span>
+                            <span>院内就诊卡</span>
+                        </div>
+
+                    </div>
+                    <div class="card-item-id">
+                        <div style="margin-right:22%">A2*****989</div>
+                        <div class="set-default">
+                            <span>设为默认</span>
+                            <span style="margin-left: 10%"><img src="./assets/images/choose-not.png" alt=""
+                                    class="set-default-img"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-item-title card-item-title-blue">
+                        <div class="title">
+                            <span><img src="https://via.placeholder.com/150" alt=""></span>
+                            <span>院内就诊卡</span>
+                        </div>
+
+                    </div>
+                    <div class="card-item-id">
+                        <div style="margin-right:22%">A2*****989</div>
+                        <div class="set-default">
+                            <span>设为默认</span>
+                            <span style="margin-left: 10%"><img src="./assets/images/choose-not.png" alt=""
+                                    class="set-default-img"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="btn-bind">
+                    <span class="btn-bind-icon"><img src="./assets/images/add.png" alt=""></span>
+                    <span>&emsp;关联绑定就诊人</span>
+                </div>
+                <div class="btn-bind">
+                    <span class="btn-bind-icon"><img src="./assets/images/view.png" alt=""></span>
+                    <span>&emsp;查看用卡记录&emsp;</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/js/jquery2.1.1.min.js"></script>
+    <script language="javascript" type="text/javascript">
+        //<![CDATA[ 
+        //手机页面被文字输入框顶起来后，重新设定页面高度
+        $('body').height($('body')[0].clientHeight);
+
+        //设置页面可滑动区域高高度
+        $('.card-list').height($('body')[0].clientHeight - $(".footer")[0].clientHeight - 8);
+
+    //]]>
+    </script>
+</body>
+
+</html>

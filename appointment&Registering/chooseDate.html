@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport"
+        name="viewport">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>日期选择</title>
+    <link rel="stylesheet" href="./assets/css/commonstyle.css">
+    <style>
+        .wrapper {
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 0 8px;
+        }
+
+        .choose-date-btn {
+            padding: 8px;
+            height: 40px;
+        }
+
+        .choose-date-btn img {
+            width: 34px;
+        }
+
+        .choose-date-btn button {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .choose-date-list {
+            overflow-y: scroll;
+        }
+
+        .choose-date-list .date-item:first-child {
+            border-top: 1px solid #ddd;
+        }
+
+        .date-item {
+            font-size: 16px;
+            color: #101010;
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            line-height: 40px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .date-item a,
+        .date-item a:hover {
+            color: #101010;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="choose-date-btn">
+                <button>
+                    <img src="./assets/images/date-icon.png" alt="">
+                    <span style="margin-left:8px">请选择挂号日期</span>
+                </button>
+            </div>
+            <div class="choose-date-list">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/js/jquery2.1.1.min.js"></script>
+    <script language="javascript" type="text/javascript">
+        //<![CDATA[ 
+        //手机页面被文字输入框顶起来后，重新设定页面高度
+        $('body').height($('body')[0].clientHeight);
+        //设置页面可滑动区域高高度
+        $('.choose-date-list').height($('body')[0].clientHeight - $(".choose-date-btn")[0].clientHeight);
+
+        //ajax获取的日期列表
+        const dateList = [
+            { date: '2019-05-14' },
+            { date: '2019-05-15' },
+            { date: '2019-05-16' },
+            { date: '2019-05-17' },
+            { date: '2019-05-18' },
+            { date: '2019-05-19' },
+            { date: '2019-05-20' },
+            { date: '2019-05-21' },
+            { date: '2019-05-22' },
+            { date: '2019-05-23' },
+            { date: '2019-05-24' },
+            { date: '2019-05-25' },
+            { date: '2019-05-26' },
+            { date: '2019-05-27' },
+            { date: '2019-05-28' },
+            { date: '2019-05-29' },
+            { date: '2019-05-30' }
+        ];
+
+        //调用向页面填充数据函数
+        appendDateList(dateList);
+
+        //向页面填充数据
+        function appendDateList(dateList) {
+            var insertHTML = '';
+            dateList.map((item) => {
+                const date = item.date.split('-');
+                const year = date[0].padStart(4, '20');
+                const month = date[1].padStart(2, '0');
+                const day = date[2].padStart(2, '0');
+                const week = getWeek(item.date);
+                insertHTML += `
+                    <div class="date-item">
+                        <a href="./chooseDateOffice.html?date=${item.date}">
+                            ${year}年${month}月${day}日 星期${week}
+                        </a>
+                    </div>
+                `;
+            });
+
+            $(".choose-date-list").append(insertHTML);
+        }
+        //判断星期
+        function getWeek(date) {
+            const weekArray = new Array("日", "一", "二", "三", "四", "五", "六");
+            const week = weekArray[new Date(date).getDay()];
+            return week;
+        }
+    //]]>
+    </script>
+</body>
+
+</html>
