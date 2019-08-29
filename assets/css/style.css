@@ -41,6 +41,7 @@ a:hover, a:focus {
 
 .navMainPhone {
     height: 100%;
+    width: 100%;
     padding-left: unset;
     margin: unset;
     display: flex;
