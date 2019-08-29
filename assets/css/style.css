@@ -48,12 +48,12 @@ a:hover, a:focus {
 }
 
 .navMain {
-    padding-left: unset;
-    /* padding-right: 150px; */
+    /* padding-left: unset; */
+    padding-right: 15%;
     margin: unset;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-end;
 }
 
 .containerAll {
@@ -70,4 +70,8 @@ a:hover, a:focus {
     -webkit-background-size: cover;
     -o-background-size: cover;
     background-position: center 0;
+}
+
+.navimenu .gooey-menu-item {
+    z-index: -100;
 }
