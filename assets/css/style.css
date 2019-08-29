@@ -75,3 +75,7 @@ a:hover, a:focus {
 .navimenu .gooey-menu-item {
     z-index: -100;
 }
+
+.gooey-round3 svg {
+    width: 100px;
+}
