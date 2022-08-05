@@ -1,0 +1,19 @@
+<!doctype html><html lang=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>好好学习，天天向上</title><link rel="stylesheet" href="/index.css"><script defer="defer" src="/js/chunk-vendors.f81dff0e.js"></script><script defer="defer" src="/js/app.6323c74e.js"></script><link href="/css/chunk-vendors.2b57a4a6.css" rel="stylesheet"><link href="/css/app.6abdeee1.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but 好好学习，天天向上 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div class="page-loading" id="page-loading"><div class="shaft1"></div><div class="shaft2"></div><div class="shaft3"></div><div class="shaft4"></div><div class="shaft5"></div><div class="shaft6"></div><div class="shaft7"></div><div class="shaft8"></div><div class="shaft9"></div><div class="shaft10"></div></div><div id="app"></div><script>if (isIE()) {
+      alert("很抱歉我们暂不支持ie浏览器，如果页面没有反应，请您安装目前市面上主流的浏览器进行更好的操作体验。")
+    }
+
+    function isIE() { //ie?
+      if (!!window.ActiveXObject || "ActiveXObject" in window)
+        return true;
+      else
+        return false;
+    }
+
+    function setPageLoading() {
+      if (document.readyState == 'complete') {
+        let elm = document.getElementById('page-loading')
+        elm.style.display = 'none';
+      } //当页面加载状态
+    }
+
+    document.onreadystatechange = setPageLoading; //当页面加载状态改变的时候执行这个方法.</script></body></html>
